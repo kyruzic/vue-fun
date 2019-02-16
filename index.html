@@ -1,0 +1,67 @@
+<!-- development version, includes helpful console warnings -->
+<!DOCTYPE html>
+<html>
+  <head>    
+   <meta charset="utf-8">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
+    <link rel="stylesheet" type="text/css" href="styles/styles.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+            
+  </head>
+   
+  <body>
+    <main class="site">
+        <h3> Dice Game </h3>
+        <p>
+            A RNG Javascript game where you compete with the computer to see who rolls the higher number, steal all the opponents gold to move onto the next level.
+        </p>
+        <div id="high-roll">
+        <dice-game v-bind:game-title="gameName">
+            <progress class="progress is-small is-primary" v-bind:value="levelPercentage" max="100"></progress>
+            <div class="columns is-vcentered">
+                <div class="column has-text-centered">
+                    <p> Their Gold: {{enemyGold}}</p>
+                    <span>
+                        Computer: 
+                        <i v-bind:class="player1.iconName"></i>
+                    </span>    
+                    <p> Vs. </p>
+                    <span>
+                        Player:
+                        <i v-bind:class="player2.iconName"></i>
+                    </span>
+                    <p> Your Gold: {{playerGold}}</p>
+                </div>
+                <div class="column has-text-centered ">
+                    <template v-if="newRoll === 0">
+                        <div class="field has-addons">
+                            <p class="control">
+                                <input class="input" v-model="bet">
+                            </p>
+                            <p class="control">
+                            <a class="button" v-on:click="roll(bet)">
+                                Roll
+                            </a>
+                            </p>
+                        </div>
+                    </template>
+                    <template v-else>
+                            <p v-show="win > 0"> You Won! </p>
+                            <p v-show="win === 0"> It's a Tie </p>
+                            <p v-show="0 > win"> You Lost! </p>
+                            <a class="button" v-on:click="tryAgain()">
+                                Try Again
+                            </a>
+                    </template>
+                </div>
+            </div>
+        </dice-game>
+        </div>
+	</main>  
+  </body>
+  <script src="scripts/diceBet.js"></script>
+</html>
+
+
